@@ -96,10 +96,10 @@ export default function Home() {
     if (error) { setAuthError(error.message); return }
     if (data.user) {
       await supabase.from("profiles").insert({ id: data.user.id, name: authName, email: authEmail })
-      setUser(data.user)
-      setShowAuth(false)
       setAuthEmail(""); setAuthPassword(""); setAuthName("")
-      showToast("Account created!")
+      setAuthError("")
+      setIsSignUp(false)
+      showToast("Account created! Check your email to confirm, then sign in.")
     }
   }
 
@@ -220,7 +220,25 @@ export default function Home() {
 
       <div style={{ maxWidth: "860px", margin: "0 auto", padding: "32px 20px 80px" }}>
         <h2 style={{ fontSize: "34px", fontWeight: 700, margin: "0 0 8px", color: "#fff" }}>Find a quick gig<span style={{ color: "#cdff50" }}>.</span></h2>
-        <p style={{ color: "#555", margin: "0 0 32px", fontSize: "16px" }}>Post anything you need done. Pick up a gig and get paid.</p>
+        <p style={{ color: "#555", margin: "0 0 24px", fontSize: "16px" }}>Post anything you need done. Pick up a gig and get paid.</p>
+          <p style={{ fontSize: "20px", color: "#cdff50", fontWeight: 600, marginBottom: "12px", letterSpacing: "0.5px", textTransform: "uppercase" }}>How it works</p>
+        <div style={{ display: "flex", gap: "20px", marginBottom: "32px", flexWrap: "wrap" }}>
+          <div style={{ flex: 1, minWidth: "200px", background: "#101114", border: "1px solid #1a1b1e", borderRadius: "14px", padding: "20px" }}>
+            <div style={{ fontSize: "28px", marginBottom: "10px" }}>1</div>
+            <h3 style={{ fontSize: "16px", fontWeight: 600, color: "#fff", margin: "0 0 6px" }}>Post</h3>
+            <p style={{ fontSize: "13px", color: "#666", margin: 0, lineHeight: 1.5 }}>Describe what you need done and set your price. Anything goes.</p>
+          </div>
+          <div style={{ flex: 1, minWidth: "200px", background: "#101114", border: "1px solid #1a1b1e", borderRadius: "14px", padding: "20px" }}>
+            <div style={{ fontSize: "28px", marginBottom: "10px" }}>2</div>
+            <h3 style={{ fontSize: "16px", fontWeight: 600, color: "#fff", margin: "0 0 6px" }}>Claim</h3>
+            <p style={{ fontSize: "13px", color: "#666", margin: 0, lineHeight: 1.5 }}>Someone nearby sees your gig and requests it. You review and accept.</p>
+          </div>
+          <div style={{ flex: 1, minWidth: "200px", background: "#101114", border: "1px solid #1a1b1e", borderRadius: "14px", padding: "20px" }}>
+            <div style={{ fontSize: "28px", marginBottom: "10px" }}>3</div>
+            <h3 style={{ fontSize: "16px", fontWeight: 600, color: "#fff", margin: "0 0 6px" }}>Connect</h3>
+            <p style={{ fontSize: "13px", color: "#666", margin: 0, lineHeight: 1.5 }}>Message each other, coordinate details, get it done, get paid. No fees.</p>
+          </div>
+        </div>
 
         <input style={{ width: "100%", padding: "14px 18px", background: "#111214", border: "1px solid #1e2025", borderRadius: "12px", color: "#e8e8e8", fontSize: "15px", fontFamily: "'DM Sans', sans-serif", outline: "none", marginBottom: "20px", boxSizing: "border-box" }} placeholder="Search by job, location, or category..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} />
 
